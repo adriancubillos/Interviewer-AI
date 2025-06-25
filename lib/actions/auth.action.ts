@@ -49,15 +49,18 @@ export async function signUp(params: SignUpParams) {
       success: true,
       message: 'Account created successfully. Please sign in.',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating user:', error);
 
     // Handle Firebase specific errors
-    if (error.code === 'auth/email-already-exists') {
-      return {
-        success: false,
-        message: 'This email is already in use',
-      };
+    if (error && typeof error === 'object' && 'code' in error) {
+      const firebaseError = error as { code: string };
+      if (firebaseError.code === 'auth/email-already-exists') {
+        return {
+          success: false,
+          message: 'This email is already in use',
+        };
+      }
     }
 
     return {
@@ -126,4 +129,30 @@ export async function getCurrentUser(): Promise<User | null> {
 export async function isAuthenticated() {
   const user = await getCurrentUser();
   return !!user; //Double negation converts the existance or not existance of a value into a Boolean
+}
+
+export async function getInterviewsByUserId(userId: string): Promise<Interview[] | null> {
+  const interviews = await db.collection('interviews').where('userId', '==', userId).orderBy('createdAt', 'desc').get();
+
+  return interviews.docs.map((interview) => ({
+    id: interview.id,
+    ...interview.data(),
+  })) as Interview[];
+}
+
+export async function getLatestInterviews(params: GetLatestInterviewsParams): Promise<Interview[] | null> {
+  const { userId, limit = 20 } = params;
+
+  const interviews = await db
+    .collection('interviews')
+    .where('finalized', '==', true)
+    .where('userId', '!=', userId)
+    .orderBy('createdAt', 'desc')
+    .limit(limit)
+    .get();
+
+  return interviews.docs.map((interview) => ({
+    id: interview.id,
+    ...interview.data(),
+  })) as Interview[];
 }
