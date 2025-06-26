@@ -9,7 +9,7 @@ import DisplayTechIcons from './DisplayTechIcons';
 import { cn, getRandomInterviewCover } from '@/lib/utils';
 // import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
 
-const InterviewCard = async ({ interviewId, userId, role, type, techstack, createdAt }: InterviewCardProps) => {
+const InterviewCard = async ({ interviewId, userId, role, type, techstack, createdAt, amount }: InterviewCardProps) => {
   const feedback = null as Feedback | null;
   // userId && interviewId ?
   //   await getFeedbackByInterviewId({
@@ -51,7 +51,7 @@ const InterviewCard = async ({ interviewId, userId, role, type, techstack, creat
           <h3 className="mt-5 capitalize">{role} Interview</h3>
 
           {/* Date & Score */}
-          <div className="flex flex-row gap-5 mt-3">
+          <div className="flex flex-row gap-4 mt-3">
             <div className="flex flex-row gap-2">
               <Image
                 src="/calendar.svg"
@@ -62,7 +62,7 @@ const InterviewCard = async ({ interviewId, userId, role, type, techstack, creat
               <p>{formattedDate}</p>
             </div>
 
-            <div className="flex flex-row gap-2 items-center">
+            <div className="flex flex-row gap-4 items-center">
               <Image
                 src="/star.svg"
                 width={22}
@@ -70,6 +70,16 @@ const InterviewCard = async ({ interviewId, userId, role, type, techstack, creat
                 alt="star"
               />
               <p>{feedback?.totalScore || '---'}/100</p>
+            </div>
+
+            <div className="flex flex-row gap-4 items-center">
+              <Image
+                src="/question.svg"
+                width={22}
+                height={22}
+                alt="questions"
+              />
+              <p>{amount}</p>
             </div>
           </div>
 

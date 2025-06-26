@@ -17,6 +17,7 @@ export const mappings = {
   'node.js': 'nodejs',
   nodejs: 'nodejs',
   node: 'nodejs',
+  note: 'nodejs',
   mongodb: 'mongodb',
   mongo: 'mongodb',
   mongoose: 'mongoose',
@@ -48,6 +49,8 @@ export const mappings = {
   ts: 'typescript',
   javascript: 'javascript',
   js: 'javascript',
+  vanilla: 'javascript',
+  'vanilla javascript': 'javascript',
   'angular.js': 'angular',
   angularjs: 'angular',
   angular: 'angular',
@@ -95,6 +98,10 @@ export const mappings = {
   netlify: 'netlify',
   vercel: 'vercel',
   'aws amplify': 'amplify',
+  java: 'java',
+  'java SDK': 'java',
+  springboot: 'spring',
+  spring: 'spring',
 };
 
 export const interviewer: CreateAssistantDTO = {
