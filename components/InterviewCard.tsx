@@ -89,7 +89,6 @@ const InterviewCard = async ({ interviewId, userId, role, type, techstack, creat
           {feedback?.finalAssessment ?
             <p className="h-20 overflow-y-auto scrollbar mt-5">{feedback?.finalAssessment}</p>
           : <p className="text-red-400 mt-5">
-              {' '}
               You haven&apos;t taken this interview yet. Take it now to improve your skills.
             </p>
           }
